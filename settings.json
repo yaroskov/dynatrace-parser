@@ -1,0 +1,11 @@
+{
+	"sources": [
+		"data.json"
+	],
+	"options": {
+		"printFullData": true,
+		"printLiteVersion": false,
+		"writeFullData": true,
+		"writeLiteVersion": true
+	}
+}
