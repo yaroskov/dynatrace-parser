@@ -5,6 +5,14 @@ from datetime import datetime
 
 class Parser:
 
+	def __init__(self):
+		self.settings = Parser.jsonLoad("settings.json")
+
+		self.results = []
+		self.resultsLite = []
+
+		self.reportFilled = []
+
 	@staticmethod
 	def jsonView(results):
 		
@@ -39,5 +47,23 @@ class Parser:
 		currDateTime = datetime.now().strftime("%d-%m-%Y_%H.%M.%S")
 		a_file = open(path + prefix + "_" + currDateTime + "." + extension, "wb")
 		a_file.write(encoded_unicode)
+		pass
 
+	def setPath(self, source):
+		return self.settings["sources"]["dataPath"]["path"] + self.settings["sources"][source]["path"]
+
+	def setPathRelative(self, source):
+		return self.settings["sources"][source]["path"]
+
+	def setFile(self, source):
+		return self.settings["sources"][source]["source"]
+
+	def printResults(self, data):
+		if self.settings["options"]["printData"]:
+			print(data)
+		pass
+
+	def writeResults(self, data, path, prefix, extension):
+		if self.settings["options"]["writeData"]:
+			Parser.writeDataToFile(data=data, path=path, prefix=prefix, extension=extension)
 		pass

@@ -1,27 +1,11 @@
 from datetime import datetime
 from classes.Parser import Parser
+from classes.UpdateReportWithTasks import UpdateReportWithTasks
 
 class DynatraceParser(Parser):
 
 	def __init__(self):
-
-		self.results = []
-		self.resultsLite = []
-
-		self.settings = {}
-		self.dataPath = ""
-
-	def prepareData(self):
-
-		callItems = []
-		for source in self.settings["sources"]:
-
-			jsonData = Parser.jsonLoad(source, "data/source_bags/")
-			callItems += jsonData["callItems"]
-
-		callItems = sorted(callItems, key=lambda item: item["errorsData"]["serverSide"]["exceptionMessage"])
-
-		return callItems
+		super(DynatraceParser, self).__init__()
 
 	def makeFinalData(self, callItems):
 
@@ -42,7 +26,7 @@ class DynatraceParser(Parser):
 			currItem['name'] = item['name']
 			intUnixTime = int(item['startTime']) / 1000
 			currItem['startTime'] = datetime.fromtimestamp(intUnixTime).strftime('%Y-%m-%d %H:%M:%S')
-			currItem["URI"] = "https://juu410.dynatrace-managed.com/e/3051004e-37e8-4d8f-98ff-9e175c2f39eb/#servicecall;sci=SERVICE-BE720D12C8680318;callURI=" + item["callURI"] + ";gf=all"
+			currItem["URI"] = self.setPathRelative("dynotraceURI") + item["callURI"] + ";gf=all"
 			currItem["errorsData"] = item["errorsData"]
 			currItem["requestAttributeData"] = item["requestAttributeData"]
 
@@ -88,76 +72,8 @@ class DynatraceParser(Parser):
 			if prevMsg != item["errorsData"]["serverSide"]["exceptionMessage"] and not isLike:
 				finalData["errors"].append(group)
 				finalDataLite["errors"].append(groupLite)
-
 			
 			prevMsg = item["errorsData"]["serverSide"]["exceptionMessage"]
 			self.results = finalData
 			self.resultsLite = finalDataLite
-
-		pass
-
-	def settingsInclude(self):
-
-		settingsAll = Parser.jsonLoad("settings.json")
-		self.settings = settingsAll["reporter"]
-		self.dataPath = settingsAll["dataPath"]
-
-		pass
-
-	def runFull(self):
-		self.run()
-		self.printResultsFull()
-		self.writeResultsFull()
-
-		pass
-
-	def runLite(self):
-		self.run()
-		self.printResultsLite()
-		self.writeResultsLite()
-
-		pass
-
-	def run(self):
-
-		self.settingsInclude()
-
-		callItems = self.prepareData()
-		self.makeFinalData(callItems)
-
-		self.results = Parser.jsonView(self.results)
-		self.resultsLite = Parser.jsonView(self.resultsLite)
-
-		pass
-
-	def printResults(self, data):
-		if self.settings["options"]["printData"]:
-			print(data)
-
-		pass
-
-	def printResultsFull(self):
-		self.printResults(self.results)
-
-		pass
-
-	def printResultsLite(self):
-		self.printResults(self.resultsLite)
-
-		pass
-
-	def writeResults(self, data, path, prefix, extension):
-		if self.settings["options"]["writeData"]:
-			Parser.writeDataToFile(data=data, path=path, prefix=prefix, extension=extension)
-
-		pass
-
-	def writeResultsFull(self):
-		self.writeResults(data=self.results, path="data/reports/", prefix="report_full", extension="json")
-
-		pass
-
-	def writeResultsLite(self):
-		self.writeResults(data=self.resultsLite, path="data/reports/", prefix="report_lite", extension="json")
-
 		pass

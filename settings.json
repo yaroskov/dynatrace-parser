@@ -1,54 +1,54 @@
 {
-	"dataPath":"data/",
-	"tasksHandler":{
-		"sources": {
-			"report": {
-				"path": "reports/",
-				"source": "report_lite_11-06-2021_16.40.27.json"
-			},
-			"tasks": {
-				"path": "tasks/",
-				"source": "tasks_10-06-2021_16.23.57.json"
-			},
-			"tasksSource": {
-				"path": "source_tasks/",
-				"source": "gosuslugi-jira 2021-06-10T16_18_56+0300.html"
-			},
-			"reportsFilled":{
-				"path": "reports_filled/"
-			}
+	"options": {
+		"printData": true,
+		"writeData": true
+	},
+	"sources": {
+		"dynotraceURI": {"path": "https://juu410.dynatrace-managed.com/e/3051004e-37e8-4d8f-98ff-9e175c2f39eb/#servicecall;sci=SERVICE-BE720D12C8680318;callURI="},
+		"dataPath": {"path": "data/"},
+		"source_bags": {
+			"path": "source_bags/",
+			"source": [
+				"11_06_00-06.json",
+				"11_06_06-12.json",
+				"11_06_12-16.json"
+			]
+		},
+		"reports": {
+			"path": "reports/",
+			"source": "report_lite_13-06-2021_23.17.08.json"
+		},
+		"tasks": {
+			"path": "tasks/",
+			"source": "tasks_10-06-2021_16.23.57.json"
+		},
+		"tasksSource": {
+			"path": "source_tasks/",
+			"source": "gosuslugi-jira 2021-06-10T16_18_56+0300.html"
+		},
+		"reportsFilled":{
+			"path": "reports_filled/"
 		}
 	},
-	"reporter":{
-		"sources": [
-			"11_06_00-06.json",
-			"11_06_06-12.json",
-			"11_06_12-16.json"
-		],
-		"options": {
-			"printData": true,
-			"writeData": true
-		},
-		"likeList": [
-			"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Couldn't save File objectId",
-			"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Invalid mime type \\\"application\\\": does not contain '/'\",\"traceId\":",
-			"External entity not found. Response code: 404 Not Found. Body: [], url: [http://p00pgulkapinlb/api/lk/v1/orders/",
-			"GepsId",
-			"не является черновиком",
-			"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Error while send to service-processing 500 Internal Server Error: [no body]\",",
-			"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$extension]",
-			"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$modelTS_string]",
-			"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$pd1_foreign['storedValues']['lastName'], $pd1_foreign",
-			"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$pd3['regAddr']['index'], $pd3['regAddr']['index']]",
-			"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$pd4_constAdr['regAddr']['index']]\",\"traceId\":",
-			"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$xmlService.unescape($adr1['building1'])]",
-			"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$xmlService.unescape($pd4['regAddr']['building2'])]",
-			"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$xmlService.unescape($pd4['regAddr']['district'])",
-			"MVD_equeue_",
-			"java.lang.IllegalArgumentException: Cannot construct instance of `ru.gosuslugi.pgu.components.descriptor.types.FullAddress` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value",
-			"Ошибка при проверке возможности создания заявления. Error response from external service. Response code: 400 Bad Request. Body:",
-			"Body: [{\"status\":\"BAD_REQUEST\",\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Query; CQL [com.datastax.oss.driver.internal.core.cql.DefaultSimpleStatement",
-			"Error response from external service. Response code: 500 Internal Server Error. Body: [], url: [http://p00pgulkapinlb/lk-api/api/lk/v1/feeds/GEPS/"
-		]
-	}
+	"likeList": [
+		"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Couldn't save File objectId",
+		"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Invalid mime type \\\"application\\\": does not contain '/'\",\"traceId\":",
+		"External entity not found. Response code: 404 Not Found. Body: [], url: [http://p00pgulkapinlb/api/lk/v1/orders/",
+		"GepsId",
+		"не является черновиком",
+		"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Error while send to service-processing 500 Internal Server Error: [no body]\",",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$extension]",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$modelTS_string]",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$pd1_foreign['storedValues']['lastName'], $pd1_foreign",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$pd3['regAddr']['index'], $pd3['regAddr']['index']]",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$pd4_constAdr['regAddr']['index']]\",\"traceId\":",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$xmlService.unescape($adr1['building1'])]",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$xmlService.unescape($pd4['regAddr']['building2'])]",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$xmlService.unescape($pd4['regAddr']['district'])",
+		"MVD_equeue_",
+		"java.lang.IllegalArgumentException: Cannot construct instance of `ru.gosuslugi.pgu.components.descriptor.types.FullAddress` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value",
+		"Ошибка при проверке возможности создания заявления. Error response from external service. Response code: 400 Bad Request. Body:",
+		"Body: [{\"status\":\"BAD_REQUEST\",\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Query; CQL [com.datastax.oss.driver.internal.core.cql.DefaultSimpleStatement",
+		"Error response from external service. Response code: 500 Internal Server Error. Body: [], url: [http://p00pgulkapinlb/lk-api/api/lk/v1/feeds/GEPS/"
+	]
 }
