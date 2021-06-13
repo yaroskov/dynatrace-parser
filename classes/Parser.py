@@ -1,4 +1,5 @@
 import json
+import sys
 import os
 from datetime import datetime
 
@@ -7,16 +8,25 @@ class Parser:
 	@staticmethod
 	def jsonView(results):
 		
-		return json.dumps(results, sort_keys=False, indent=4, ensure_ascii=False)
+		results = json.dumps(results, sort_keys=False, indent=4, ensure_ascii=False)
+
+		return results
 
 	@staticmethod
 	def jsonLoad(source, path=""):
 
-		jsonData = None
 		with open(path + source, "r", encoding='utf-8') as txtData:
 			jsonData = json.load(txtData)
-
+			
 		return jsonData
+
+	@staticmethod
+	def textFileLoad(source):
+
+		with open(source, "r", encoding="utf-8") as data:
+			text = data.read()
+
+		return text
 
 	@staticmethod
 	def writeDataToFile(data, path="", prefix="", extension="json"):

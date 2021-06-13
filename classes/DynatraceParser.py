@@ -1,6 +1,6 @@
-import json
+#import json
 import itertools
-import os
+#import os
 from datetime import datetime
 from classes.Parser import Parser
 
@@ -10,15 +10,16 @@ class DynatraceParser(Parser):
 
 		self.results = []
 		self.resultsLite = []
-		self.sources = []
-		self.options = []
+
+		self.settings = {}
+		self.dataPath = ""
 
 	def prepareData(self):
 
 		callItems = []
-		for source in self.sources:
+		for source in self.settings["sources"]:
 
-			jsonData = Parser.jsonLoad(source, "sources/")
+			jsonData = Parser.jsonLoad(source, "data/source_bags/")
 			callItems += jsonData["callItems"]
 
 		callItems = sorted(callItems, key=lambda item: item["errorsData"]["serverSide"]["exceptionMessage"])
@@ -51,10 +52,20 @@ class DynatraceParser(Parser):
 			group = {}
 			groupLite = {}
 			
-			if (prevMsg == item["errorsData"]["serverSide"]["exceptionMessage"]):
+			isLike = False
+			currLike = ""
+			for like in self.settings["likeList"]:
+				if like in prevMsg:
+					currLike = like
+					isLike = True
+					break
+
+			if prevMsg == item["errorsData"]["serverSide"]["exceptionMessage"] or isLike:
 				group = prevGroup
 				groupLite = prevGroupLite
-				
+				if isLike:
+					group["like"] = groupLite["like"] = currLike
+
 			else:
 				finalData["errorsNumber"] += 1
 				finalDataLite["errorsNumber"] += 1
@@ -63,9 +74,11 @@ class DynatraceParser(Parser):
 				group["incidentsNumber"] = 0
 				group["exceptionMessage"] = item["errorsData"]["serverSide"]["exceptionMessage"]
 				group["exceptionClass"] = item["errorsData"]["serverSide"]["exceptionClass"]
+				group["taskName"] = ""
+				group["taskNumber"] = ""
+
 				groupLite = group.copy()
-				groupLite["taskName"] = ""
-				groupLite["taskNumber"] = ""
+
 				group["incidents"] = []
 
 			group["incidentsNumber"] += 1
@@ -75,47 +88,48 @@ class DynatraceParser(Parser):
 			prevGroup = group
 			prevGroupLite = groupLite
 
-			if (prevMsg != group["exceptionMessage"]):
+			if prevMsg != item["errorsData"]["serverSide"]["exceptionMessage"] and not isLike:
 				finalData["errors"].append(group)
 				finalDataLite["errors"].append(groupLite)
 
 			
-			prevMsg = group["exceptionMessage"]
+			prevMsg = item["errorsData"]["serverSide"]["exceptionMessage"]
 			self.results = finalData
 			self.resultsLite = finalDataLite
 
 		pass
 
-	def settings(self):
+	def settingsInclude(self):
 
-		jsonData = Parser.jsonLoad("settings.json")
+		settingsAll = Parser.jsonLoad("settings.json")
+		self.settings = settingsAll["reporter"]
+		self.dataPath = settingsAll["dataPath"]
 
-		self.sources = jsonData["sources"]
-		self.options = jsonData["options"]
+		pass
+
+	def runFull(self):
+		self.run()
+		self.printResults()
+		self.writeResults()
+
+		pass
+
+	def runLite(self):
+		self.run()
+		self.printResultsLite()
+		self.writeResultsLite()
 
 		pass
 
 	def run(self):
 
-		self.settings()
+		self.settingsInclude()
 
 		callItems = self.prepareData()
 		self.makeFinalData(callItems)
 
 		self.results = Parser.jsonView(self.results)
 		self.resultsLite = Parser.jsonView(self.resultsLite)
-
-		if self.options["printFullData"]:
-			self.printResults()
-
-		if self.options["printLiteVersion"]:
-			self.printResultsLite()
-
-		if self.options["writeFullData"]:
-			self.writeResults()
-
-		if self.options["writeLiteVersion"]:
-			self.writeResultsLite()
 
 		pass
 
@@ -133,12 +147,12 @@ class DynatraceParser(Parser):
 
 	def writeResults(self):
 
-		Parser.writeDataToFile(data=self.results, path="results/", prefix="results", extension="json")
+		Parser.writeDataToFile(data=self.results, path="data/reports/", prefix="report_full", extension="json")
 
 		pass
 
 	def writeResultsLite(self):
 
-		Parser.writeDataToFile(data=self.resultsLite, path="results/", prefix="results_lite", extension="json")
+		Parser.writeDataToFile(data=self.resultsLite, path="data/reports/", prefix="report_lite", extension="json")
 
 		pass
