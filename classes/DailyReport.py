@@ -1,7 +1,3 @@
-#import json
-#import itertools
-#import os
-#from datetime import datetime
 from classes.Parser import Parser
 from bs4 import BeautifulSoup
 
@@ -46,7 +42,7 @@ class DailyReport(Parser):
 		self.settingsInclude()
 		report = Parser.jsonLoad(self.settings["sources"]["report"]["source"], self.dataPath + self.settings["sources"]["report"]["path"])
 		tasks = Parser.jsonLoad(self.settings["sources"]["tasks"]["source"], self.dataPath + self.settings["sources"]["tasks"]["path"])
-		print(Parser.jsonView(tasks))
+		#print(Parser.jsonView(tasks))
 		
 		for error in report["errors"]:
 			for task in tasks:
@@ -75,3 +71,9 @@ class DailyReport(Parser):
 		self.dataPath = settingsAll["dataPath"]
 
 		pass
+
+	def setPath(self, source):
+		return self.dataPath + self.settings["sources"][source]["path"]
+
+	def setFile(self, source):
+		return self.settings["sources"][source]["source"]

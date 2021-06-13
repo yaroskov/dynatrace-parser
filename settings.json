@@ -3,12 +3,12 @@
 	"tasksHandler":{
 		"sources": {
 			"report": {
-				"path": "tasks/",
-				"source": "tasks_10-06-2021_16.23.57.json"
-			},
-			"tasks": {
 				"path": "reports/",
 				"source": "report_lite_11-06-2021_16.40.27.json"
+			},
+			"tasks": {
+				"path": "tasks/",
+				"source": "tasks_10-06-2021_16.23.57.json"
 			},
 			"tasksSource": {
 				"path": "source_tasks/",
@@ -26,10 +26,8 @@
 			"11_06_12-16.json"
 		],
 		"options": {
-			"printFullData": true,
-			"printLiteVersion": true,
-			"writeFullData": true,
-			"writeLiteVersion": true
+			"printData": true,
+			"writeData": true
 		},
 		"likeList": [
 			"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Couldn't save File objectId",

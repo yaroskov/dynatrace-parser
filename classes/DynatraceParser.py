@@ -1,6 +1,3 @@
-#import json
-import itertools
-#import os
 from datetime import datetime
 from classes.Parser import Parser
 
@@ -109,8 +106,8 @@ class DynatraceParser(Parser):
 
 	def runFull(self):
 		self.run()
-		self.printResults()
-		self.writeResults()
+		self.printResultsFull()
+		self.writeResultsFull()
 
 		pass
 
@@ -133,26 +130,34 @@ class DynatraceParser(Parser):
 
 		pass
 
-	def printResults(self):
+	def printResults(self, data):
+		if self.settings["options"]["printData"]:
+			print(data)
 
-		print(self.results)
+		pass
+
+	def printResultsFull(self):
+		self.printResults(self.results)
 
 		pass
 
 	def printResultsLite(self):
-
-		print(self.resultsLite)
+		self.printResults(self.resultsLite)
 
 		pass
 
-	def writeResults(self):
+	def writeResults(self, data, path, prefix, extension):
+		if self.settings["options"]["writeData"]:
+			Parser.writeDataToFile(data=data, path=path, prefix=prefix, extension=extension)
 
-		Parser.writeDataToFile(data=self.results, path="data/reports/", prefix="report_full", extension="json")
+		pass
+
+	def writeResultsFull(self):
+		self.writeResults(data=self.results, path="data/reports/", prefix="report_full", extension="json")
 
 		pass
 
 	def writeResultsLite(self):
-
-		Parser.writeDataToFile(data=self.resultsLite, path="data/reports/", prefix="report_lite", extension="json")
+		self.writeResults(data=self.resultsLite, path="data/reports/", prefix="report_lite", extension="json")
 
 		pass
