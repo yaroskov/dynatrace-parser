@@ -28,7 +28,8 @@
 		},
 		"reportsFilled":{
 			"path": "reports_filled/"
-		}
+		},
+		"beauties": {"path": "beauties/"}
 	},
 	"likeList": [
 		"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Couldn't save File objectId",

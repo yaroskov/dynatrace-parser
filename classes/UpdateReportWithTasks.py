@@ -8,6 +8,7 @@ class UpdateReportWithTasks(Parser):
 	def updateReportFromFile(self):
 		report = Parser.jsonLoad(self.setFile("reports"), self.setPath("reports"))
 		self.updateReport(report)
+		self.reportFilled = Parser.jsonView(report)
 		self.printResults(self.reportFilled)
 		Parser.writeDataToFile(data=self.reportFilled, path=self.setPath("reportsFilled"), prefix="report_filled", extension="json")
 		pass
@@ -17,7 +18,6 @@ class UpdateReportWithTasks(Parser):
 		pass
 
 	def updateReport(self, report=None):
-
 		tasks = Parser.jsonLoad(self.setFile("tasks"), self.setPath("tasks"))
 		
 		for error in report["errors"]:
@@ -33,7 +33,5 @@ class UpdateReportWithTasks(Parser):
 					error["taskNumber"] = task["key"]
 					break
 
-		report = Parser.jsonView(report)
-		
 		self.reportFilled = report
 		pass

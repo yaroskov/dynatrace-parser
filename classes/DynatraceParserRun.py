@@ -1,6 +1,7 @@
 from classes.Parser import Parser
 from classes.DynatraceParser import DynatraceParser
 from classes.UpdateReportWithTasks import UpdateReportWithTasks
+from classes.MakeBeautyReport import MakeBeautyReport
 
 class DynatraceParserRun(DynatraceParser):
 
@@ -19,7 +20,6 @@ class DynatraceParserRun(DynatraceParser):
 		return callItems
 
 	def run(self):
-
 		callItems = self.prepareData()
 		self.makeFinalData(callItems)
 		pass
@@ -27,41 +27,38 @@ class DynatraceParserRun(DynatraceParser):
 	def runFull(self):
 		self.run()
 		self.results = Parser.jsonView(self.results)
-		self.printResultsFull()
+		self.printResults(self.results)
 		self.writeResultsFull()
 		pass
 
 	def runLite(self):
 		self.run()
 		self.resultsLite = Parser.jsonView(self.resultsLite)
-		self.printResultsLite()
+		self.printResults(self.resultsLite)
 		self.writeResultsLite()
 		pass
 
+	def reportHandler(self, results):
+		tasks = UpdateReportWithTasks()
+		tasks.updateReportInStream(report=results)
+
+		results = Parser.jsonView(results)
+		self.printResults(results)
+
+		beauty = MakeBeautyReport()
+		beauty.makeBeautyReport(tasks.reportFilled)
+		return results
+
 	def runCompleteReportLite(self):
 		self.run()
-		tasks = UpdateReportWithTasks()
-		tasks.updateReportInStream(report=self.resultsLite)
-		self.resultsLite = Parser.jsonView(self.resultsLite)
-		self.printResults(self.resultsLite)
+		self.resultsLite = self.reportHandler(self.resultsLite)
 		self.writeResultsLite()
 		pass
 
 	def runCompleteReportFull(self):
 		self.run()
-		tasks = UpdateReportWithTasks()
-		tasks.updateReportInStream(report=self.results)
-		self.results = Parser.jsonView(self.results)
-		self.printResults(self.results)
+		self.results = self.reportHandler(self.results)
 		self.writeResultsFull()
-		pass
-
-	def printResultsFull(self):
-		self.printResults(self.results)
-		pass
-
-	def printResultsLite(self):
-		self.printResults(self.resultsLite)
 		pass
 
 	def writeResultsFull(self):
