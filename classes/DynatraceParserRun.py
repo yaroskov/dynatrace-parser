@@ -38,15 +38,16 @@ class DynatraceParserRun(DynatraceParser):
 		self.writeResultsLite()
 		pass
 
-	def reportHandler(self, results):
+	def reportHandler(self, results, makeBeauty=True):
 		tasks = UpdateReportWithTasks()
 		tasks.updateReportInStream(report=results)
 
 		results = Parser.jsonView(results)
 		self.printResults(results)
 
-		beauty = MakeBeautyReport()
-		beauty.makeBeautyReport(tasks.reportFilled)
+		if self.settings["options"]["writeBeauty"] and makeBeauty:
+			beauty = MakeBeautyReport()
+			beauty.makeBeautyReport(tasks.reportFilled)
 		return results
 
 	def runCompleteReportLite(self):
@@ -60,6 +61,17 @@ class DynatraceParserRun(DynatraceParser):
 		self.results = self.reportHandler(self.results)
 		self.writeResultsFull()
 		pass
+
+	def runCompleteReport(self):
+		self.run()
+
+		self.resultsLite = self.reportHandler(self.resultsLite)
+		self.writeResultsLite()
+
+		self.results = self.reportHandler(self.results, makeBeauty=False)
+		self.writeResultsFull()
+
+		print("report done")
 
 	def writeResultsFull(self):
 		self.writeResults(data=self.results, path=self.setPath("reports"), prefix="report_full", extension="json")

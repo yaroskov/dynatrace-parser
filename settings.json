@@ -1,7 +1,8 @@
 {
 	"options": {
 		"printData": true,
-		"writeData": true
+		"writeData": true,
+		"writeBeauty": true
 	},
 	"sources": {
 		"dynotraceURI": {"path": "https://juu410.dynatrace-managed.com/e/3051004e-37e8-4d8f-98ff-9e175c2f39eb/#servicecall;sci=SERVICE-BE720D12C8680318;callURI="},
@@ -9,9 +10,8 @@
 		"source_bags": {
 			"path": "source_bags/",
 			"source": [
-				"11_06_00-06.json",
-				"11_06_06-12.json",
-				"11_06_12-16.json"
+				"1.json",
+				"2.json"
 			]
 		},
 		"reports": {
@@ -20,15 +20,13 @@
 		},
 		"tasks": {
 			"path": "tasks/",
-			"source": "tasks_10-06-2021_16.23.57.json"
+			"source": "tasks_18-06-2021_16.01.41.json"
 		},
 		"tasksSource": {
 			"path": "source_tasks/",
-			"source": "gosuslugi-jira 2021-06-10T16_18_56+0300.html"
+			"source": "gosuslugi-jira 2021-06-18T15_57_32+0300.html"
 		},
-		"reportsFilled":{
-			"path": "reports_filled/"
-		},
+		"reportsFilled":{"path": "reports_filled/"},
 		"beauties": {"path": "beauties/"}
 	},
 	"likeList": [
@@ -50,6 +48,7 @@
 		"java.lang.IllegalArgumentException: Cannot construct instance of `ru.gosuslugi.pgu.components.descriptor.types.FullAddress` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value",
 		"Ошибка при проверке возможности создания заявления. Error response from external service. Response code: 400 Bad Request. Body:",
 		"Body: [{\"status\":\"BAD_REQUEST\",\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Query; CQL [com.datastax.oss.driver.internal.core.cql.DefaultSimpleStatement",
-		"Error response from external service. Response code: 500 Internal Server Error. Body: [], url: [http://p00pgulkapinlb/lk-api/api/lk/v1/feeds/GEPS/"
+		"Error response from external service. Response code: 500 Internal Server Error. Body: [], url: [http://p00pgulkapinlb/lk-api/api/lk/v1/feeds/GEPS/",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$modelTS_lookup['text']"
 	]
 }

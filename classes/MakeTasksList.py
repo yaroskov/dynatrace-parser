@@ -8,7 +8,7 @@ class MakeTasksList(Parser):
 
 	def makeTasksList(self):
 
-		self.settingsInclude()
+		#self.settingsInclude()
 		htmlDoc = Parser.textFileLoad(self.setPath("tasksSource") + self.setFile("tasksSource"))
 		htmlData = BeautifulSoup(htmlDoc, 'html.parser')
 		tbody = htmlData.tbody
