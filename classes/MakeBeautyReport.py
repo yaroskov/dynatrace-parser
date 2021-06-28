@@ -7,16 +7,14 @@ class MakeBeautyReport(Parser):
 		self.beautyReport = []
 
 	def makeBeautyReport(self, reportFilled):
-		#print(reportFilled)
-		beautyReport = []
+		beautyReport = self.beautyReport
 		for record in reportFilled["errors"]:
 			if "taskNumber" in record and record["taskNumber"] != "":
 				line = record["taskNumber"] + " " + record["taskName"] + " ~ " + str(record["incidentsNumber"])
 				beautyReport.append(line)
 
 		beautyReport = Parser.jsonView(beautyReport)
-		self.printResults(beautyReport)
 		self.writeResults(data=beautyReport, path=self.setPath("beauties"), prefix="beauty_report", extension="json")
-
 		self.beautyReport = beautyReport
+
 		pass

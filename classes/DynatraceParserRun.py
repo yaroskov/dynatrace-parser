@@ -7,6 +7,7 @@ class DynatraceParserRun(DynatraceParser):
 
 	def __init__(self):
 		super(DynatraceParserRun, self).__init__()
+		self.resultsInfo = ""
 
 	def prepareData(self):
 
@@ -17,66 +18,43 @@ class DynatraceParserRun(DynatraceParser):
 			callItems += jsonData["callItems"]
 
 		callItems = sorted(callItems, key=lambda item: item["errorsData"]["serverSide"]["exceptionMessage"])
+
 		return callItems
 
 	def run(self):
 		callItems = self.prepareData()
 		self.makeFinalData(callItems)
-		pass
-
-	def runFull(self):
-		self.run()
-		self.results = Parser.jsonView(self.results)
-		self.printResults(self.results)
-		self.writeResultsFull()
-		pass
-
-	def runLite(self):
-		self.run()
-		self.resultsLite = Parser.jsonView(self.resultsLite)
-		self.printResults(self.resultsLite)
-		self.writeResultsLite()
-		pass
-
-	def reportHandler(self, results, makeBeauty=True):
-		tasks = UpdateReportWithTasks()
-		tasks.updateReportInStream(report=results)
-
-		results = Parser.jsonView(results)
-		self.printResults(results)
-
-		if self.settings["options"]["writeBeauty"] and makeBeauty:
-			beauty = MakeBeautyReport()
-			beauty.makeBeautyReport(tasks.reportFilled)
-		return results
-
-	def runCompleteReportLite(self):
-		self.run()
-		self.resultsLite = self.reportHandler(self.resultsLite)
-		self.writeResultsLite()
-		pass
-
-	def runCompleteReportFull(self):
-		self.run()
-		self.results = self.reportHandler(self.results)
-		self.writeResultsFull()
-		pass
 
 	def runCompleteReport(self):
 		self.run()
 
-		self.resultsLite = self.reportHandler(self.resultsLite)
+		if self.settings["options"]["writeBeauty"]:
+			beauty = MakeBeautyReport()
+			beauty.makeBeautyReport(self.resultsLite)
+
+		self.resultsInterface()
+		self.resultsLite = Parser.jsonView(self.resultsLite)
+		self.printResults(self.resultsLite)
 		self.writeResultsLite()
 
-		self.results = self.reportHandler(self.results, makeBeauty=False)
-		self.writeResultsFull()
+		if self.settings["options"]["runFull"]:
+			self.results = Parser.jsonView(self.results)
+			self.printResults(self.results)
+			self.writeResultsFull()
 
-		print("report done")
+		if self.settings["options"]["writeBeauty"]:
+			self.printResults(beauty.beautyReport)
+
+		print(self.resultsInfo)
 
 	def writeResultsFull(self):
 		self.writeResults(data=self.results, path=self.setPath("reports"), prefix="report_full", extension="json")
-		pass
 
 	def writeResultsLite(self):
 		self.writeResults(data=self.resultsLite, path=self.setPath("reports"), prefix="report_lite", extension="json")
-		pass
+
+	def resultsInterface(self):
+		errorsNumber = self.resultsLite["errorsNumber"]
+		incidentsTotalNumber = self.resultsLite["incidentsTotalNumber"]
+
+		self.resultsInfo = "report done with: errors: " + str(errorsNumber) + "; incidents: " + str(incidentsTotalNumber)

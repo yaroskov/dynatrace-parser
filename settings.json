@@ -1,8 +1,9 @@
 {
 	"options": {
 		"printData": true,
-		"writeData": true,
-		"writeBeauty": true
+		"writeData": false,
+		"writeBeauty": true,
+		"runFull": false
 	},
 	"sources": {
 		"dynotraceURI": {"path": "https://juu410.dynatrace-managed.com/e/3051004e-37e8-4d8f-98ff-9e175c2f39eb/#servicecall;sci=SERVICE-BE720D12C8680318;callURI="},
@@ -20,11 +21,11 @@
 		},
 		"tasks": {
 			"path": "tasks/",
-			"source": "tasks_18-06-2021_16.01.41.json"
+			"source": "tasks_28-06-2021_16.34.36.json"
 		},
 		"tasksSource": {
 			"path": "source_tasks/",
-			"source": "gosuslugi-jira 2021-06-18T15_57_32+0300.html"
+			"source": "gosuslugi-jira 2021-06-28T16_32_15+0300.html"
 		},
 		"reportsFilled":{"path": "reports_filled/"},
 		"beauties": {"path": "beauties/"}

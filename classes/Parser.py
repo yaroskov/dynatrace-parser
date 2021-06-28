@@ -13,6 +13,26 @@ class Parser:
 
 		self.reportFilled = []
 
+	def likeFinder(self, prevMsg):
+		currLike = None
+		for like in self.settings["likeList"]:
+			if like in prevMsg:
+				currLike = like
+				break
+
+		return currLike
+
+	def currItem(self, item):
+		currItem = {}
+		currItem['name'] = item['name']
+		intUnixTime = int(item['startTime']) / 1000
+		currItem['startTime'] = datetime.fromtimestamp(intUnixTime).strftime('%Y-%m-%d %H:%M:%S')
+		currItem["URI"] = self.setPathRelative("dynotraceURI") + item["callURI"] + ";gf=all"
+		currItem["errorsData"] = item["errorsData"]
+		currItem["requestAttributeData"] = item["requestAttributeData"]
+
+		return currItem
+
 	@staticmethod
 	def jsonView(results):
 		

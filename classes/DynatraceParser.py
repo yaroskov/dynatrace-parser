@@ -20,32 +20,20 @@ class DynatraceParser(Parser):
 		prevGroup = {}
 		prevGroupLite = {}
 
-		for item in callItems:
+		tasks = UpdateReportWithTasks()
+		tasksList = tasks.loadTasks()
+		currLike = None
 
-			currItem = {}
-			currItem['name'] = item['name']
-			intUnixTime = int(item['startTime']) / 1000
-			currItem['startTime'] = datetime.fromtimestamp(intUnixTime).strftime('%Y-%m-%d %H:%M:%S')
-			currItem["URI"] = self.setPathRelative("dynotraceURI") + item["callURI"] + ";gf=all"
-			currItem["errorsData"] = item["errorsData"]
-			currItem["requestAttributeData"] = item["requestAttributeData"]
+		for item in callItems:
 
 			group = {}
 			groupLite = {}
 			
-			isLike = False
-			currLike = ""
-			for like in self.settings["likeList"]:
-				if like in prevMsg:
-					currLike = like
-					isLike = True
-					break
+			currLike = self.likeFinder(prevMsg)
 
-			if prevMsg == item["errorsData"]["serverSide"]["exceptionMessage"] or isLike:
+			if prevMsg == item["errorsData"]["serverSide"]["exceptionMessage"] or currLike:
 				group = prevGroup
 				groupLite = prevGroupLite
-				if isLike:
-					group["like"] = groupLite["like"] = currLike
 
 			else:
 				finalData["errorsNumber"] += 1
@@ -55,25 +43,27 @@ class DynatraceParser(Parser):
 				group["incidentsNumber"] = 0
 				group["exceptionMessage"] = item["errorsData"]["serverSide"]["exceptionMessage"]
 				group["exceptionClass"] = item["errorsData"]["serverSide"]["exceptionClass"]
-				group["taskName"] = ""
-				group["taskNumber"] = ""
 
+				likeForGroup = self.likeFinder(item["errorsData"]["serverSide"]["exceptionMessage"])
+				if likeForGroup:
+					group["like"] = likeForGroup
+
+				group = tasks.findTaskDirectly(group, tasksList)
 				groupLite = group.copy()
-
 				group["incidents"] = []
 
 			group["incidentsNumber"] += 1
 			groupLite["incidentsNumber"] += 1
 
+			currItem = self.currItem(item)
 			group["incidents"].append(currItem)
 			prevGroup = group
 			prevGroupLite = groupLite
 
-			if prevMsg != item["errorsData"]["serverSide"]["exceptionMessage"] and not isLike:
+			if prevMsg != item["errorsData"]["serverSide"]["exceptionMessage"] and not currLike:
 				finalData["errors"].append(group)
 				finalDataLite["errors"].append(groupLite)
 			
 			prevMsg = item["errorsData"]["serverSide"]["exceptionMessage"]
 			self.results = finalData
 			self.resultsLite = finalDataLite
-		pass
