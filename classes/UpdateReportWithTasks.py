@@ -1,16 +1,15 @@
 from classes.Parser import Parser
 
-class UpdateReportWithTasks(Parser):
 
+class UpdateReportWithTasks(Parser):
 	def __init__(self):
 		super(UpdateReportWithTasks, self).__init__()
 
-	def loadTasks(self):
-		return Parser.jsonLoad(self.setFile("tasks"), self.setPath("tasks"))
+	def load_tasks(self):
+		return Parser.json_load(self.set_file("tasks"), self.set_path("tasks"))
 
-	def findTaskDirectly(self, error, tasksList):
-		for task in tasksList:
-			checkKey = ''
+	def find_task_directly(self, error, tasks_list):
+		for task in tasks_list:
 			if "like" in error:
 				checkKey = error["like"]
 			else:

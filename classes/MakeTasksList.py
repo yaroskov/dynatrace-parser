@@ -1,31 +1,27 @@
 from classes.Parser import Parser
 from bs4 import BeautifulSoup
 
-class MakeTasksList(Parser):
 
+class MakeTasksList(Parser):
 	def __init__(self):
 		super(MakeTasksList, self).__init__()
 
-	def makeTasksList(self):
+	def make_tasks_list(self):
 
-		#self.settingsInclude()
-		htmlDoc = Parser.textFileLoad(self.setPath("tasksSource") + self.setFile("tasksSource"))
-		htmlData = BeautifulSoup(htmlDoc, 'html.parser')
-		tbody = htmlData.tbody
+		html_doc = Parser.text_file_load(self.set_path("tasksSource") + self.set_file("tasksSource"))
+		html_data = BeautifulSoup(html_doc, 'html.parser')
+		tbody = html_data.tbody
 		rows = tbody.find_all("tr", {"class": "issuerow"})
 
 		tasks = []
 		for row in rows:
-
-			task = {}
-			task["key"] = row.find("a", {"class": "issue-link"}).text
+			task = {"key": row.find("a", {"class": "issue-link"}).text}
 			summary = row.find("td", {"class": "summary"}).text
 			task["summary"] = " ".join(summary.split())
 			task["description"] = row.find("td", {"class": "description"}).text
 			tasks.append(task)
 
-		tasks = Parser.jsonView(tasks)
+		tasks = Parser.json_view(tasks)
 
-		self.printResults(tasks)
-		Parser.writeDataToFile(data=tasks, path=self.setPath("tasks"), prefix="tasks", extension="json")
-		pass
+		self.print_results(tasks)
+		Parser.write_data_to_file(data=tasks, path=self.set_path("tasks"), prefix="tasks", extension="json")

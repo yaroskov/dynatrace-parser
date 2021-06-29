@@ -1,4 +1,4 @@
 from classes.MakeTasksList import MakeTasksList
 
 program = MakeTasksList()
-program.makeTasksList()
+program.make_tasks_list()

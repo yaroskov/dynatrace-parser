@@ -1,89 +1,74 @@
 import json
-import sys
 import os
 from datetime import datetime
 
+
 class Parser:
+    def __init__(self):
+        self.settings = Parser.json_load("settings.json")
+        self.results = []
+        self.results_lite = []
 
-	def __init__(self):
-		self.settings = Parser.jsonLoad("settings.json")
+    def like_finder(self, prev_msg):
+        curr_like = None
+        for like in self.settings["likeList"]:
+            if like in prev_msg:
+                curr_like = like
+                break
+        return curr_like
 
-		self.results = []
-		self.resultsLite = []
+    def curr_item(self, item):
+        curr_item = {'name': item['name']}
+        int_unix_time = int(item['startTime']) / 1000
+        curr_item['startTime'] = datetime.fromtimestamp(int_unix_time).strftime('%Y-%m-%d %H:%M:%S')
+        curr_item["URI"] = self.set_path_relative("dynotraceURI") + item["callURI"] + ";gf=all"
+        curr_item["errorsData"] = item["errorsData"]
+        curr_item["requestAttributeData"] = item["requestAttributeData"]
 
-		self.reportFilled = []
+        return curr_item
 
-	def likeFinder(self, prevMsg):
-		currLike = None
-		for like in self.settings["likeList"]:
-			if like in prevMsg:
-				currLike = like
-				break
+    @staticmethod
+    def json_view(results):
+        results = json.dumps(results, sort_keys=False, indent=4, ensure_ascii=False)
+        return results
 
-		return currLike
+    @staticmethod
+    def json_load(source, path=""):
+        with open(path + source, "r", encoding='utf-8') as txtData:
+            jsonData = json.load(txtData)
+        return jsonData
 
-	def currItem(self, item):
-		currItem = {}
-		currItem['name'] = item['name']
-		intUnixTime = int(item['startTime']) / 1000
-		currItem['startTime'] = datetime.fromtimestamp(intUnixTime).strftime('%Y-%m-%d %H:%M:%S')
-		currItem["URI"] = self.setPathRelative("dynotraceURI") + item["callURI"] + ";gf=all"
-		currItem["errorsData"] = item["errorsData"]
-		currItem["requestAttributeData"] = item["requestAttributeData"]
+    @staticmethod
+    def text_file_load(source):
+        with open(source, "r", encoding="utf-8") as data:
+            text = data.read()
+        return text
 
-		return currItem
+    @staticmethod
+    def write_data_to_file(data, path="", prefix="", extension="json"):
 
-	@staticmethod
-	def jsonView(results):
-		
-		results = json.dumps(results, sort_keys=False, indent=4, ensure_ascii=False)
+        if not os.path.exists(path):
+            os.mkdir(path)
 
-		return results
+        encoded_unicode = data.encode("utf8")
 
-	@staticmethod
-	def jsonLoad(source, path=""):
+        currDateTime = datetime.now().strftime("%d-%m-%Y_%H.%M.%S")
+        a_file = open(path + prefix + "_" + currDateTime + "." + extension, "wb")
+        a_file.write(encoded_unicode)
 
-		with open(path + source, "r", encoding='utf-8') as txtData:
-			jsonData = json.load(txtData)
-			
-		return jsonData
+    def set_path(self, source):
+        return self.settings["sources"]["dataPath"]["path"] + self.settings["sources"][source]["path"]
 
-	@staticmethod
-	def textFileLoad(source):
+    def set_path_relative(self, source):
+        return self.settings["sources"][source]["path"]
 
-		with open(source, "r", encoding="utf-8") as data:
-			text = data.read()
+    def set_file(self, source):
+        return self.settings["sources"][source]["source"]
 
-		return text
+    def print_results(self, data):
+        if self.settings["options"]["printData"]:
+            print(data)
 
-	@staticmethod
-	def writeDataToFile(data, path="", prefix="", extension="json"):
-
-		if not os.path.exists(path):
-			os.mkdir(path)
-
-		encoded_unicode = data.encode("utf8")
-
-		currDateTime = datetime.now().strftime("%d-%m-%Y_%H.%M.%S")
-		a_file = open(path + prefix + "_" + currDateTime + "." + extension, "wb")
-		a_file.write(encoded_unicode)
-		pass
-
-	def setPath(self, source):
-		return self.settings["sources"]["dataPath"]["path"] + self.settings["sources"][source]["path"]
-
-	def setPathRelative(self, source):
-		return self.settings["sources"][source]["path"]
-
-	def setFile(self, source):
-		return self.settings["sources"][source]["source"]
-
-	def printResults(self, data):
-		if self.settings["options"]["printData"]:
-			print(data)
-		pass
-
-	def writeResults(self, data, path, prefix, extension):
-		if self.settings["options"]["writeData"]:
-			Parser.writeDataToFile(data=data, path=path, prefix=prefix, extension=extension)
-		pass
+    def write_results(self, data, path, prefix, extension):
+        if self.settings["options"]["writeData"]:
+            Parser.write_data_to_file(data=data, path=path, prefix=prefix, extension=extension)

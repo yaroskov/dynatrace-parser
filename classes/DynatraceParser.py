@@ -1,69 +1,64 @@
-from datetime import datetime
 from classes.Parser import Parser
 from classes.UpdateReportWithTasks import UpdateReportWithTasks
 
+
 class DynatraceParser(Parser):
 
-	def __init__(self):
-		super(DynatraceParser, self).__init__()
+    def __init__(self):
+        super(DynatraceParser, self).__init__()
 
-	def makeFinalData(self, callItems):
+    def make_final_fata(self, call_items):
 
-		finalData = {}
-		finalData["incidentsTotalNumber"] = len(callItems)
-		finalData["errorsNumber"] = 0
-		finalData["errors"] = []
-		finalDataLite = finalData.copy()
-		finalDataLite["errors"] = finalData["errors"].copy()
+        final_data = {"incidentsTotalNumber": len(call_items), "errorsNumber": 0, "errors": []}
+        final_data_lite = final_data.copy()
+        final_data_lite["errors"] = final_data["errors"].copy()
 
-		prevMsg = ''
-		prevGroup = {}
-		prevGroupLite = {}
+        prev_msg = ''
+        prev_group = {}
+        prev_group_lite = {}
 
-		tasks = UpdateReportWithTasks()
-		tasksList = tasks.loadTasks()
-		currLike = None
+        tasks = UpdateReportWithTasks()
+        tasks_list = tasks.load_tasks()
 
-		for item in callItems:
+        for item in call_items:
 
-			group = {}
-			groupLite = {}
-			
-			currLike = self.likeFinder(prevMsg)
+            group = {}
 
-			if prevMsg == item["errorsData"]["serverSide"]["exceptionMessage"] or currLike:
-				group = prevGroup
-				groupLite = prevGroupLite
+            currLike = self.like_finder(prev_msg)
 
-			else:
-				finalData["errorsNumber"] += 1
-				finalDataLite["errorsNumber"] += 1
+            if prev_msg == item["errorsData"]["serverSide"]["exceptionMessage"] or currLike:
+                group = prev_group
+                group_lite = prev_group_lite
 
-				group["№"] = finalData["errorsNumber"]
-				group["incidentsNumber"] = 0
-				group["exceptionMessage"] = item["errorsData"]["serverSide"]["exceptionMessage"]
-				group["exceptionClass"] = item["errorsData"]["serverSide"]["exceptionClass"]
+            else:
+                final_data["errorsNumber"] += 1
+                final_data_lite["errorsNumber"] += 1
 
-				likeForGroup = self.likeFinder(item["errorsData"]["serverSide"]["exceptionMessage"])
-				if likeForGroup:
-					group["like"] = likeForGroup
+                group["№"] = final_data["errorsNumber"]
+                group["incidentsNumber"] = 0
+                group["exceptionMessage"] = item["errorsData"]["serverSide"]["exceptionMessage"]
+                group["exceptionClass"] = item["errorsData"]["serverSide"]["exceptionClass"]
 
-				group = tasks.findTaskDirectly(group, tasksList)
-				groupLite = group.copy()
-				group["incidents"] = []
+                likeForGroup = self.like_finder(item["errorsData"]["serverSide"]["exceptionMessage"])
+                if likeForGroup:
+                    group["like"] = likeForGroup
 
-			group["incidentsNumber"] += 1
-			groupLite["incidentsNumber"] += 1
+                group = tasks.find_task_directly(group, tasks_list)
+                group_lite = group.copy()
+                group["incidents"] = []
 
-			currItem = self.currItem(item)
-			group["incidents"].append(currItem)
-			prevGroup = group
-			prevGroupLite = groupLite
+            group["incidentsNumber"] += 1
+            group_lite["incidentsNumber"] += 1
 
-			if prevMsg != item["errorsData"]["serverSide"]["exceptionMessage"] and not currLike:
-				finalData["errors"].append(group)
-				finalDataLite["errors"].append(groupLite)
-			
-			prevMsg = item["errorsData"]["serverSide"]["exceptionMessage"]
-			self.results = finalData
-			self.resultsLite = finalDataLite
+            currItem = self.curr_item(item)
+            group["incidents"].append(currItem)
+            prev_group = group
+            prev_group_lite = group_lite
+
+            if prev_msg != item["errorsData"]["serverSide"]["exceptionMessage"] and not currLike:
+                final_data["errors"].append(group)
+                final_data_lite["errors"].append(group_lite)
+
+            prev_msg = item["errorsData"]["serverSide"]["exceptionMessage"]
+            self.results = final_data
+            self.results_lite = final_data_lite
