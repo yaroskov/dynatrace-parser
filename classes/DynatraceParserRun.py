@@ -7,22 +7,22 @@ class DynatraceParserRun(DynatraceParser):
 
     def __init__(self):
         super(DynatraceParserRun, self).__init__()
-        self.resultsInfo = ""
+        self.results_info = ""
 
     def prepare_data(self):
 
-        callItems = []
+        call_items = []
         for source in self.set_file("source_bags"):
-            jsonData = Parser.json_load(source, self.set_path("source_bags"))
-            callItems += jsonData["callItems"]
+            json_data = Parser.json_load(source, self.set_path("source_bags"))
+            call_items += json_data["callItems"]
 
-        callItems = sorted(callItems, key=lambda item: item["errorsData"]["serverSide"]["exceptionMessage"])
+        call_items = sorted(call_items, key=lambda item: item["errorsData"]["serverSide"]["exceptionMessage"])
 
-        return callItems
+        return call_items
 
     def run(self):
-        callItems = self.prepare_data()
-        self.make_final_fata(callItems)
+        call_items = self.prepare_data()
+        self.make_final_fata(call_items)
 
     def run_complete_report(self):
         self.run()
@@ -43,9 +43,9 @@ class DynatraceParserRun(DynatraceParser):
             self.write_results_full()
 
         if self.settings["options"]["writeBeauty"]:
-            self.print_results(beauty.beautyReport)
+            self.print_results(beauty.beauty_report)
 
-        print(self.resultsInfo)
+        print(self.results_info)
 
     def write_results_full(self):
         self.write_results(data=self.results, path=self.set_path("reports"), prefix="report_full", extension="json")
@@ -55,5 +55,5 @@ class DynatraceParserRun(DynatraceParser):
                            extension="json")
 
     def results_interface(self):
-        self.resultsInfo = "report done with: errors: " + str(self.results_lite["errorsNumber"])
-        self.resultsInfo += "; incidents: " + str(self.results_lite["incidentsTotalNumber"])
+        self.results_info = "report done with: errors: " + str(self.results_lite["errorsNumber"])
+        self.results_info += "; incidents: " + str(self.results_lite["incidentsTotalNumber"])

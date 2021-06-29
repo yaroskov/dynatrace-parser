@@ -24,9 +24,9 @@ class DynatraceParser(Parser):
 
             group = {}
 
-            currLike = self.like_finder(prev_msg)
+            curr_like = self.like_finder(prev_msg)
 
-            if prev_msg == item["errorsData"]["serverSide"]["exceptionMessage"] or currLike:
+            if prev_msg == item["errorsData"]["serverSide"]["exceptionMessage"] or curr_like:
                 group = prev_group
                 group_lite = prev_group_lite
 
@@ -39,9 +39,9 @@ class DynatraceParser(Parser):
                 group["exceptionMessage"] = item["errorsData"]["serverSide"]["exceptionMessage"]
                 group["exceptionClass"] = item["errorsData"]["serverSide"]["exceptionClass"]
 
-                likeForGroup = self.like_finder(item["errorsData"]["serverSide"]["exceptionMessage"])
-                if likeForGroup:
-                    group["like"] = likeForGroup
+                like_for_group = self.like_finder(item["errorsData"]["serverSide"]["exceptionMessage"])
+                if like_for_group:
+                    group["like"] = like_for_group
 
                 group = tasks.find_task_directly(group, tasks_list)
                 group_lite = group.copy()
@@ -50,12 +50,12 @@ class DynatraceParser(Parser):
             group["incidentsNumber"] += 1
             group_lite["incidentsNumber"] += 1
 
-            currItem = self.curr_item(item)
-            group["incidents"].append(currItem)
+            curr_item = self.curr_item(item)
+            group["incidents"].append(curr_item)
             prev_group = group
             prev_group_lite = group_lite
 
-            if prev_msg != item["errorsData"]["serverSide"]["exceptionMessage"] and not currLike:
+            if prev_msg != item["errorsData"]["serverSide"]["exceptionMessage"] and not curr_like:
                 final_data["errors"].append(group)
                 final_data_lite["errors"].append(group_lite)
 
