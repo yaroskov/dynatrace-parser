@@ -1,11 +1,10 @@
-from classes.Parser import Parser
+from classes.dynatrace_parser.Data import Data
 from classes.UpdateReportWithTasks import UpdateReportWithTasks
 
 
-class DynatraceParser(Parser):
-
+class Parser(Data):
     def __init__(self):
-        super(DynatraceParser, self).__init__()
+        super(Parser, self).__init__()
 
     def make_final_fata(self, call_items):
 

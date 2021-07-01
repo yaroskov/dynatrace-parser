@@ -1,19 +1,18 @@
-from classes.Parser import Parser
-from classes.DynatraceParser import DynatraceParser
+from classes.dynatrace_parser.Data import Data
+from classes.dynatrace_parser.Parser import Parser
 from classes.MakeBeautyReport import MakeBeautyReport
 
 
-class DynatraceParserRun(DynatraceParser):
-
+class Run(Parser):
     def __init__(self):
-        super(DynatraceParserRun, self).__init__()
+        super(Run, self).__init__()
         self.results_info = ""
 
     def prepare_data(self):
 
         call_items = []
         for source in self.set_file("source_bags"):
-            json_data = Parser.json_load(source, self.set_path("source_bags"))
+            json_data = Data.json_load(source, self.set_path("source_bags"))
             call_items += json_data["callItems"]
 
         call_items = sorted(call_items, key=lambda item: item["errorsData"]["serverSide"]["exceptionMessage"])
@@ -33,12 +32,12 @@ class DynatraceParserRun(DynatraceParser):
             beauty.make_beauty_report(self.results_lite)
 
         self.results_interface()
-        self.results_lite = Parser.json_view(self.results_lite)
+        self.results_lite = Data.json_view(self.results_lite)
         self.print_results(self.results_lite)
         self.write_results_lite()
 
         if self.settings["options"]["runFull"]:
-            self.results = Parser.json_view(self.results)
+            self.results = Data.json_view(self.results)
             self.print_results(self.results)
             self.write_results_full()
 

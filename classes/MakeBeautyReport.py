@@ -1,7 +1,7 @@
-from classes.Parser import Parser
+from classes.dynatrace_parser.Data import Data
 
 
-class MakeBeautyReport(Parser):
+class MakeBeautyReport(Data):
     def __init__(self):
         super(MakeBeautyReport, self).__init__()
         self.beauty_report = []
@@ -13,6 +13,6 @@ class MakeBeautyReport(Parser):
                 line = record["taskNumber"] + " " + record["taskName"] + " ~ " + str(record["incidentsNumber"])
                 beauty_report.append(line)
 
-        beauty_report = Parser.json_view(beauty_report)
+        beauty_report = Data.json_view(beauty_report)
         self.write_results(data=beauty_report, path=self.set_path("beauties"), prefix="beauty_report", extension="json")
         self.beauty_report = beauty_report

@@ -1,12 +1,12 @@
-from classes.Parser import Parser
+from classes.dynatrace_parser.Data import Data
 
 
-class UpdateReportWithTasks(Parser):
+class UpdateReportWithTasks(Data):
     def __init__(self):
         super(UpdateReportWithTasks, self).__init__()
 
     def load_tasks(self):
-        return Parser.json_load(self.set_file("tasks"), self.set_path("tasks"))
+        return Data.json_load(self.set_file("tasks"), self.set_path("tasks"))
 
     def find_task_directly(self, error, tasks_list):
         for task in tasks_list:

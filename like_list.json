@@ -1,0 +1,24 @@
+{
+	"likeList": [
+		"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Couldn't save File objectId",
+		"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Invalid mime type \\\"application\\\": does not contain '/'\",\"traceId\":",
+		"External entity not found. Response code: 404 Not Found. Body: [], url: [http://p00pgulkapinlb/api/lk/v1/orders/",
+		"GepsId",
+		"не является черновиком",
+		"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Error while send to service-processing 500 Internal Server Error: [no body]\",",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$extension]",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$modelTS_string]",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$pd1_foreign['storedValues']['lastName'], $pd1_foreign",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$pd3['regAddr']['index'], $pd3['regAddr']['index']]",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$pd4_constAdr['regAddr']['index']]\",\"traceId\":",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$xmlService.unescape($adr1['building1'])]",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$xmlService.unescape($pd4['regAddr']['building2'])]",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$xmlService.unescape($pd4['regAddr']['district'])",
+		"MVD_equeue_",
+		"java.lang.IllegalArgumentException: Cannot construct instance of `ru.gosuslugi.pgu.components.descriptor.types.FullAddress` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value",
+		"Ошибка при проверке возможности создания заявления. Error response from external service. Response code: 400 Bad Request. Body:",
+		"Body: [{\"status\":\"BAD_REQUEST\",\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Query; CQL [com.datastax.oss.driver.internal.core.cql.DefaultSimpleStatement",
+		"Error response from external service. Response code: 500 Internal Server Error. Body: [], url: [http://p00pgulkapinlb/lk-api/api/lk/v1/feeds/GEPS/",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$modelTS_lookup['text']"
+	]
+}

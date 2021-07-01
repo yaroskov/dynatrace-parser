@@ -1,4 +1,4 @@
-from classes.DynatraceParserRun import DynatraceParserRun
+from classes.dynatrace_parser.Run import Run
 
-program = DynatraceParserRun()
+program = Run()
 program.run_complete_report()

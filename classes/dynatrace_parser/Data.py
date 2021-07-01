@@ -3,15 +3,16 @@ import os
 from datetime import datetime
 
 
-class Parser:
+class Data:
     def __init__(self):
-        self.settings = Parser.json_load("settings.json")
+        self.settings = Data.json_load("settings.json")
+        self.like_list = Data.json_load("like_list.json")
         self.results = []
         self.results_lite = []
 
     def like_finder(self, prev_msg):
         curr_like = None
-        for like in self.settings["likeList"]:
+        for like in self.like_list["likeList"]:
             if like in prev_msg:
                 curr_like = like
                 break
@@ -71,4 +72,4 @@ class Parser:
 
     def write_results(self, data, path, prefix, extension):
         if self.settings["options"]["writeData"]:
-            Parser.write_data_to_file(data=data, path=path, prefix=prefix, extension=extension)
+            Data.write_data_to_file(data=data, path=path, prefix=prefix, extension=extension)
