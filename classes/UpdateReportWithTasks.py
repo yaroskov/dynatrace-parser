@@ -1,4 +1,5 @@
 from classes.dynatrace_parser.Data import Data
+from classes.tools.Tools import Tools
 
 
 class UpdateReportWithTasks(Data):
@@ -6,9 +7,10 @@ class UpdateReportWithTasks(Data):
         super(UpdateReportWithTasks, self).__init__()
 
     def load_tasks(self):
-        return Data.json_load(self.set_file("tasks"), self.set_path("tasks"))
+        return Tools.json_load(self.set_file("tasks"), self.set_path("tasks"))
 
-    def find_task_directly(self, error, tasks_list):
+    @staticmethod
+    def find_task_directly(error, tasks_list):
         for task in tasks_list:
             if "like" in error:
                 checkKey = error["like"]

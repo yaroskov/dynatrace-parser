@@ -1,5 +1,6 @@
 from classes.dynatrace_parser.Data import Data
 from bs4 import BeautifulSoup
+from classes.tools.Tools import Tools
 
 
 class MakeTasksList(Data):
@@ -7,7 +8,7 @@ class MakeTasksList(Data):
         super(MakeTasksList, self).__init__()
 
     def make_tasks_list(self):
-        html_doc = Data.text_file_load(self.set_path("tasksSource") + self.set_file("tasksSource"))
+        html_doc = Tools.text_file_load(self.set_path("tasksSource") + self.set_file("tasksSource"))
         html_data = BeautifulSoup(html_doc, 'html.parser')
         tbody = html_data.tbody
         rows = tbody.find_all("tr", {"class": "issuerow"})
@@ -20,7 +21,7 @@ class MakeTasksList(Data):
             task["description"] = row.find("td", {"class": "description"}).text
             tasks.append(task)
 
-        tasks = Data.json_view(tasks)
+        tasks = Tools.json_view(tasks)
 
         self.print_results(tasks)
-        Data.write_data_to_file(data=tasks, path=self.set_path("tasks"), prefix="tasks", extension="json")
+        Tools.write_data_to_file(data=tasks, path=self.set_path("tasks"), prefix="tasks", extension="json")

@@ -19,6 +19,7 @@
 		"Ошибка при проверке возможности создания заявления. Error response from external service. Response code: 400 Bad Request. Body:",
 		"Body: [{\"status\":\"BAD_REQUEST\",\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Query; CQL [com.datastax.oss.driver.internal.core.cql.DefaultSimpleStatement",
 		"Error response from external service. Response code: 500 Internal Server Error. Body: [], url: [http://p00pgulkapinlb/lk-api/api/lk/v1/feeds/GEPS/",
-		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$modelTS_lookup['text']"
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$modelTS_lookup['text']",
+		"[{\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$cadnumber1]"
 	]
 }

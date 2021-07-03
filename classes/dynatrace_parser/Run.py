@@ -1,6 +1,6 @@
-from classes.dynatrace_parser.Data import Data
 from classes.dynatrace_parser.Parser import Parser
 from classes.MakeBeautyReport import MakeBeautyReport
+from classes.tools.Tools import Tools
 
 
 class Run(Parser):
@@ -12,7 +12,7 @@ class Run(Parser):
 
         call_items = []
         for source in self.set_file("source_bags"):
-            json_data = Data.json_load(source, self.set_path("source_bags"))
+            json_data = Tools.json_load(source, self.set_path("source_bags"))
             call_items += json_data["callItems"]
 
         call_items = sorted(call_items, key=lambda item: item["errorsData"]["serverSide"]["exceptionMessage"])
@@ -32,12 +32,12 @@ class Run(Parser):
             beauty.make_beauty_report(self.results_lite)
 
         self.results_interface()
-        self.results_lite = Data.json_view(self.results_lite)
+        self.results_lite = Tools.json_view(self.results_lite)
         self.print_results(self.results_lite)
         self.write_results_lite()
 
         if self.settings["options"]["runFull"]:
-            self.results = Data.json_view(self.results)
+            self.results = Tools.json_view(self.results)
             self.print_results(self.results)
             self.write_results_full()
 

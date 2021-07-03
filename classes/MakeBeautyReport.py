@@ -1,4 +1,5 @@
 from classes.dynatrace_parser.Data import Data
+from classes.tools.Tools import Tools
 
 
 class MakeBeautyReport(Data):
@@ -13,6 +14,6 @@ class MakeBeautyReport(Data):
                 line = record["taskNumber"] + " " + record["taskName"] + " ~ " + str(record["incidentsNumber"])
                 beauty_report.append(line)
 
-        beauty_report = Data.json_view(beauty_report)
+        beauty_report = Tools.json_view(beauty_report)
         self.write_results(data=beauty_report, path=self.set_path("beauties"), prefix="beauty_report", extension="json")
         self.beauty_report = beauty_report
