@@ -23,7 +23,8 @@ class Data:
         curr_item['startTime'] = datetime.fromtimestamp(int_unix_time).strftime('%Y-%m-%d %H:%M:%S')
         curr_item["URI"] = self.set_path_relative("dynotraceURI") + item["callURI"] + ";gf=all"
         curr_item["errorsData"] = item["errorsData"]
-        curr_item["requestAttributeData"] = item["requestAttributeData"]
+        if "requestAttributeData" in item:
+            curr_item["requestAttributeData"] = item["requestAttributeData"]["requestAttributes"]
 
         return curr_item
 

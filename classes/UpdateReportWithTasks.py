@@ -13,11 +13,11 @@ class UpdateReportWithTasks(Data):
     def find_task_directly(error, tasks_list):
         for task in tasks_list:
             if "like" in error:
-                checkKey = error["like"]
+                check_key = error["like"]
             else:
-                checkKey = error["exceptionMessage"]
+                check_key = error["exceptionMessage"]
 
-            if checkKey in task["description"]:
+            if check_key in task["description"]:
                 error["taskName"] = task["summary"]
                 error["taskNumber"] = task["key"]
                 break

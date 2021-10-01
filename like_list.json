@@ -20,6 +20,23 @@
 		"Body: [{\"status\":\"BAD_REQUEST\",\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Query; CQL [com.datastax.oss.driver.internal.core.cql.DefaultSimpleStatement",
 		"Error response from external service. Response code: 500 Internal Server Error. Body: [], url: [http://p00pgulkapinlb/lk-api/api/lk/v1/feeds/GEPS/",
 		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$modelTS_lookup['text']",
-		"[{\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$cadnumber1]"
+		"[{\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$cadnumber1]",
+		"Draft Service Client: Error on get draft by orderId:",
+		"Error response from external service. Response code: 400 Bad Request. Body: [{\"message\":\"Bad Request\",\"description\":\"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$RecipientLegalPhoneData]",
+		"Error response from external service. Response code: 500 Internal Server Error. Body: [], url: [http://p00pgunlbservices/internal/api/delirium/2/epgu2service/stages/calc",
+		"Проверка сгенеренной XML: остались плейсхолдеры - [$xmlService.unescape($pd1_2)]",
+		"Проверка сгенеренной XML: остались плейсхолдеры - [$fai23, $pd1_2]",
+		"Error while send to service-processing 404 Not Found: [no body]",
+		"Проверка сгенеренной XML: остались плейсхолдеры - [$p_doisi9]",
+		"and mnemonic req_preview.pdf, code: 500 Internal Server Error: [no body",
+		"Ошибка при проверке дублирующихся значений в заявлении. Error response from external service. Response code: 400 Bad Request. Body: [{\"code\":\"FIELD\",\"limitationField\":{\"types\":[],\"orderId\"",
+		", url: [http://p00pgunlbservices/sp-adapter/sendS",
+		"Unexpected server error: Проверка сгенеренной XML: остались плейсхолдеры - [$regAddr['street']]\",\"traceId",
+		"Проверка сгенеренной XML: остались плейсхолдеры - [$numberTS_FOR]",
+		"Executor [java.util.concurrent.ThreadPoolExecutor@",
+		"[{\"status\":\"Bad Request\",\"message\":\"BAD_REQUEST\",\"description\":\"ServiceDescriptor store client: Error on /v1/scenario/{serviceId} by serviceId:",
+		"I/O error on GET request for \"http://p00pgulkapinlb/api/lk/v1/orders/",
+		"I/O error on DELETE request for \"http://p00pgulkapinlb/api/lk/v1/orders/",
+		"I/O error on POST request for \"http://p00pgulkapinlb/api/lk/v1/orders/check/"
 	]
 }

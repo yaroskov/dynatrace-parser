@@ -15,20 +15,20 @@
 				"2.json",
 				"3.json",
 				"4.json",
-				"5.json"
+				"5.json",
+				"6.json"
 			]
 		},
 		"reports": {
-			"path": "reports/",
-			"source": "report_lite_13-06-2021_23.17.08.json"
+			"path": "reports/"
 		},
 		"tasks": {
 			"path": "tasks/",
-			"source": "tasks_28-06-2021_16.34.36.json"
+			"source": "tasks_23-09-2021_17.16.54.json"
 		},
 		"tasksSource": {
 			"path": "source_tasks/",
-			"source": "gosuslugi-jira 2021-06-28T16_32_15+0300.html"
+			"source": "gosuslugi-jira 2021-09-23T17_15_57+0300.html"
 		},
 		"reportsFilled":{"path": "reports_filled/"},
 		"beauties": {"path": "beauties/"}

@@ -8,10 +8,10 @@ class MakeTasksList(Data):
         super(MakeTasksList, self).__init__()
 
     def make_tasks_list(self):
-        html_doc = Tools.text_file_load(self.set_path("tasksSource") + self.set_file("tasksSource"))
+        html_doc = Tools.text_file_load_utf8(self.set_path("tasksSource") + self.set_file("tasksSource"))
         html_data = BeautifulSoup(html_doc, 'html.parser')
-        tbody = html_data.tbody
-        rows = tbody.find_all("tr", {"class": "issuerow"})
+        t_body = html_data.tbody
+        rows = t_body.find_all("tr", {"class": "issuerow"})
 
         tasks = []
         for row in rows:
