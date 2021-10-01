@@ -24,11 +24,11 @@
 		},
 		"tasks": {
 			"path": "tasks/",
-			"source": "tasks_23-09-2021_17.16.54.json"
+			"source": "tasks_01-10-2021_16.54.19.json"
 		},
 		"tasksSource": {
 			"path": "source_tasks/",
-			"source": "gosuslugi-jira 2021-09-23T17_15_57+0300.html"
+			"source": "gosuslugi-jira 2021-10-01T16_53_14+0300.html"
 		},
 		"reportsFilled":{"path": "reports_filled/"},
 		"beauties": {"path": "beauties/"}

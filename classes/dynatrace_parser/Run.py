@@ -11,8 +11,9 @@ class Run(Parser):
     def prepare_data(self):
 
         call_items = []
+        time_folder = Tools.time_now("%d.%m.%Y")
         for source in self.set_file("source_bags"):
-            json_data = Tools.json_load(source, self.set_path("source_bags"))
+            json_data = Tools.json_load(source, self.set_path("source_bags") + time_folder + "/")
             call_items += json_data["callItems"]
 
         call_items = sorted(call_items, key=lambda item: item["errorsData"]["serverSide"]["exceptionMessage"])

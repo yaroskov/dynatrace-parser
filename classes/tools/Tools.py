@@ -1,9 +1,14 @@
 from classes.tools.func.WriteToFile import WriteToFile
 from classes.tools.func.Text import Text
 from classes.tools.func.Time import Time
+from classes.tools.func.MakeFolders import MakeFolders
 
 
 class Tools:
+    @staticmethod
+    def mkdir(path):
+        return MakeFolders.mkdir(path)
+
     @staticmethod
     def time_now(style="%d-%m-%Y_%H.%M.%S"):
         return Time.now(style)
