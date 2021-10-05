@@ -18,13 +18,14 @@ class Data:
         return curr_like
 
     def curr_item(self, item):
-        curr_item = {'name': item['name']}
-        int_unix_time = int(item['startTime']) / 1000
+        # curr_item = {'name': item['name']}
+        curr_item = {}
+        int_unix_time = int(item["infoData"]['callStartTime']) / 1000
         curr_item['startTime'] = datetime.fromtimestamp(int_unix_time).strftime('%Y-%m-%d %H:%M:%S')
-        curr_item["URI"] = self.set_path_relative("dynotraceURI") + item["callURI"] + ";gf=all"
-        curr_item["errorsData"] = item["errorsData"]
-        if "requestAttributeData" in item:
-            curr_item["requestAttributeData"] = item["requestAttributeData"]["requestAttributes"]
+        curr_item["URI"] = self.set_path_relative("dynotraceURI") + item["infoData"]["callURI"] + ";gf=all"
+        curr_item["errorData"] = item["errorData"]
+        if "requestAttributesData" in item:
+            curr_item["requestAttributesData"] = item["requestAttributesData"]["requestAttributesList"]
 
         return curr_item
 

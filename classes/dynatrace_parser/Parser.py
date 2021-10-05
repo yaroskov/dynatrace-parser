@@ -25,7 +25,7 @@ class Parser(Data):
 
             curr_like = self.like_finder(prev_msg)
 
-            if prev_msg == item["errorsData"]["serverSide"]["exceptionMessage"] or curr_like:
+            if prev_msg == item["errorData"]["serverSide"]["exceptionMessage"] or curr_like:
                 group = prev_group
                 group_lite = prev_group_lite
 
@@ -35,10 +35,10 @@ class Parser(Data):
 
                 group["№"] = final_data["errorsNumber"]
                 group["incidentsNumber"] = 0
-                group["exceptionMessage"] = item["errorsData"]["serverSide"]["exceptionMessage"]
-                group["exceptionClass"] = item["errorsData"]["serverSide"]["exceptionClass"]
+                group["exceptionMessage"] = item["errorData"]["serverSide"]["exceptionMessage"]
+                group["exceptionClass"] = item["errorData"]["serverSide"]["exceptionClass"]
 
-                like_for_group = self.like_finder(item["errorsData"]["serverSide"]["exceptionMessage"])
+                like_for_group = self.like_finder(item["errorData"]["serverSide"]["exceptionMessage"])
                 if like_for_group:
                     group["like"] = like_for_group
 
@@ -54,10 +54,10 @@ class Parser(Data):
             prev_group = group
             prev_group_lite = group_lite
 
-            if prev_msg != item["errorsData"]["serverSide"]["exceptionMessage"] and not curr_like:
+            if prev_msg != item["errorData"]["serverSide"]["exceptionMessage"] and not curr_like:
                 final_data["errors"].append(group)
                 final_data_lite["errors"].append(group_lite)
 
-            prev_msg = item["errorsData"]["serverSide"]["exceptionMessage"]
+            prev_msg = item["errorData"]["serverSide"]["exceptionMessage"]
             self.results = final_data
             self.results_lite = final_data_lite
