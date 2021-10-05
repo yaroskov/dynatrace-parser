@@ -1,4 +1,4 @@
-from classes.dynatrace_parser.Data import Data
+from classes.dynatrace_parser.functional.Data import Data
 from classes.tools.Tools import Tools
 
 

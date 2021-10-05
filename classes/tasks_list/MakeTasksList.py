@@ -1,4 +1,4 @@
-from classes.dynatrace_parser.Data import Data
+from classes.dynatrace_parser.functional.Data import Data
 from bs4 import BeautifulSoup
 from classes.tools.Tools import Tools
 
@@ -9,7 +9,7 @@ class MakeTasksList(Data):
 
     def make_tasks_list(self):
         html_doc = Tools.text_file_load_utf8(self.set_path("tasksSource") + self.set_file("tasksSource"))
-        html_data = BeautifulSoup(html_doc, 'html.parser')
+        html_data = BeautifulSoup(html_doc, 'html.functional')
         t_body = html_data.tbody
         rows = t_body.find_all("tr", {"class": "issuerow"})
 

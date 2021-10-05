@@ -1,5 +1,5 @@
-from classes.dynatrace_parser.Parser import Parser
-from classes.MakeBeautyReport import MakeBeautyReport
+from classes.dynatrace_parser.functional.MakeFinalData import Parser
+from classes.beauty_report.MakeBeautyReport import MakeBeautyReport
 from classes.tools.Tools import Tools
 
 
@@ -12,8 +12,11 @@ class Run(Parser):
 
         call_items = []
         time_folder = Tools.time_now("%d.%m.%Y")
-        for source in self.set_file("source_bags"):
-            json_data = Tools.json_load(source, self.set_path("source_bags") + time_folder + "/")
+
+        i = 0
+        while i < self.sources_number():
+            i += 1
+            json_data = Tools.json_load(str(i) + ".json", self.set_path("source_bags") + time_folder + "/")
             call_items += json_data["analysisResult"]["purePathsList"]
 
         call_items = sorted(call_items, key=lambda item: item["errorData"]["serverSide"]["exceptionMessage"])

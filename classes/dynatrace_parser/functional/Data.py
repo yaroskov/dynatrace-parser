@@ -29,6 +29,9 @@ class Data:
 
         return curr_item
 
+    def sources_number(self):
+        return self.settings["sources"]["sourcesNumber"]
+
     def set_path(self, source):
         return self.settings["sources"]["dataPath"]["path"] + self.settings["sources"][source]["path"]
 

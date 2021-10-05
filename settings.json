@@ -8,6 +8,7 @@
 	"sources": {
 		"dynotraceURI": {"path": "https://juu410.dynatrace-managed.com/e/3051004e-37e8-4d8f-98ff-9e175c2f39eb/#servicecall;sci=SERVICE-BE720D12C8680318;callURI="},
 		"dataPath": {"path": "data/"},
+		"sourcesNumber": 6,
 		"source_bags": {
 			"path": "source_bags/",
 			"source": [

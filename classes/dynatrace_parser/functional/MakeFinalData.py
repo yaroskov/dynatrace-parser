@@ -1,5 +1,5 @@
-from classes.dynatrace_parser.Data import Data
-from classes.UpdateReportWithTasks import UpdateReportWithTasks
+from classes.dynatrace_parser.functional.Data import Data
+from classes.tasks_list.UpdateReportWithTasks import UpdateReportWithTasks
 
 
 class Parser(Data):
