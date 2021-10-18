@@ -37,6 +37,7 @@
 		"[{\"status\":\"Bad Request\",\"message\":\"BAD_REQUEST\",\"description\":\"ServiceDescriptor store client: Error on /v1/scenario/{serviceId} by serviceId:",
 		"I/O error on GET request for \"http://p00pgulkapinlb/api/lk/v1/orders/",
 		"I/O error on DELETE request for \"http://p00pgulkapinlb/api/lk/v1/orders/",
-		"I/O error on POST request for \"http://p00pgulkapinlb/api/lk/v1/orders/check/"
+		"I/O error on POST request for \"http://p00pgulkapinlb/api/lk/v1/orders/check/",
+		"Должно возвращаться всегда единственное подразделение по окато"
 	]
 }

@@ -1,4 +1,4 @@
 from classes.blanks_maker.BlanksMakerRun import BlanksMakerRun
 
-
-BlanksMakerRun.run()
+blanks = BlanksMakerRun()
+blanks.run()
