@@ -1,11 +1,12 @@
-from classes.dynatrace_parser.functional.Data import Data
+# from classes.dynatrace_parser.functional.Data import Data
+from classes.data.Data import Data
 from bs4 import BeautifulSoup
 from classes.tools.Tools import Tools
 
 
 class MakeTasksList(Data):
-    def __init__(self):
-        super(MakeTasksList, self).__init__()
+    def __init__(self, config):
+        super(MakeTasksList, self).__init__(config)
 
     def make_tasks_list(self):
         html_doc = Tools.text_file_load_utf8(self.set_path("tasksSource") + self.set_file("tasksSource"))

@@ -1,10 +1,11 @@
-from classes.dynatrace_parser.functional.Data import Data
+# from classes.dynatrace_parser.functional.Data import Data
+from classes.data.Data import Data
 from classes.tools.Tools import Tools
 
 
 class UpdateReportWithTasks(Data):
-    def __init__(self):
-        super(UpdateReportWithTasks, self).__init__()
+    def __init__(self, config):
+        super(UpdateReportWithTasks, self).__init__(config)
 
     def load_tasks(self):
         return Tools.json_load(self.set_file("tasks"), self.set_path("tasks"))

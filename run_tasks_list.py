@@ -1,4 +1,5 @@
 from classes.tasks_list.MakeTasksList import MakeTasksList
+import config
 
-program = MakeTasksList()
+program = MakeTasksList(config)
 program.make_tasks_list()

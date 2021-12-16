@@ -12,9 +12,6 @@
 		"source_bags": {
 			"path": "source_bags/"
 		},
-		"source_bags_kibana": {
-			"path": "source_bags_kibana/"
-		},
 		"reports": {
 			"path": "reports/"
 		},

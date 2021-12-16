@@ -1,10 +1,11 @@
-from classes.dynatrace_parser.functional.Data import Data
+# from classes.dynatrace_parser.functional.Data import Data
 from classes.tasks_list.UpdateReportWithTasks import UpdateReportWithTasks
+from classes.data.Data import Data
 
 
 class Parser(Data):
-    def __init__(self):
-        super(Parser, self).__init__()
+    def __init__(self, config):
+        super(Parser, self).__init__(config)
 
     def make_final_fata(self, call_items):
 
@@ -16,7 +17,7 @@ class Parser(Data):
         prev_group = {}
         prev_group_lite = {}
 
-        tasks = UpdateReportWithTasks()
+        tasks = UpdateReportWithTasks(self.config)
         tasks_list = tasks.load_tasks()
 
         for item in call_items:

@@ -1,10 +1,11 @@
-from classes.dynatrace_parser.functional.Data import Data
+# from classes.dynatrace_parser.functional.Data import Data
+from classes.data.Data import Data
 from classes.tools.Tools import Tools
 
 
 class MakeBeautyReport(Data):
-    def __init__(self):
-        super(MakeBeautyReport, self).__init__()
+    def __init__(self, config):
+        super(MakeBeautyReport, self).__init__(config)
         self.beauty_report = ""
 
     def make_beauty_report(self, report_filled):

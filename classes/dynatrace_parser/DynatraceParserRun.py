@@ -1,11 +1,11 @@
-from classes.dynatrace_parser.functional.MakeFinalData import Parser
+from classes.dynatrace_parser.functional.Parser import Parser
 from classes.beauty_report.MakeBeautyReport import MakeBeautyReport
 from classes.tools.Tools import Tools
 
 
 class Run(Parser):
-    def __init__(self):
-        super(Run, self).__init__()
+    def __init__(self, config):
+        super(Run, self).__init__(config)
         self.results_info = ""
 
     def prepare_data(self):
@@ -31,8 +31,8 @@ class Run(Parser):
         self.run()
 
         beauty = None
-        if self.settings["options"]["writeBeauty"]:
-            beauty = MakeBeautyReport()
+        if self.options["writeBeauty"]:
+            beauty = MakeBeautyReport(self.config)
             beauty.make_beauty_report(self.results_lite)
 
         self.results_interface()
@@ -40,12 +40,12 @@ class Run(Parser):
         self.print_results(self.results_lite)
         self.write_results_lite()
 
-        if self.settings["options"]["runFull"]:
+        if self.options["runFull"]:
             self.results = Tools.json_view(self.results)
             self.print_results(self.results)
             self.write_results_full()
 
-        if self.settings["options"]["writeBeauty"]:
+        if self.options["writeBeauty"]:
             self.print_results(beauty.beauty_report)
 
         print(self.results_info)
