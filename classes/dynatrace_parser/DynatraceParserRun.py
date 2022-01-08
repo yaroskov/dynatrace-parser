@@ -1,3 +1,4 @@
+import config
 from classes.dynatrace_parser.functional.Parser import Parser
 from classes.beauty_report.MakeBeautyReport import MakeBeautyReport
 from classes.tools.Tools import Tools
@@ -11,7 +12,10 @@ class Run(Parser):
     def prepare_data(self):
 
         call_items = []
-        time_folder = Tools.time_now("%d.%m.%Y")
+        if config.options["customData"]["isOn"]:
+            time_folder = config.options["customData"]["date"]
+        else:
+            time_folder = Tools.time_now("%d.%m.%Y")
 
         i = 0
         while i < self.sources_number():

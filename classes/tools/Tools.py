@@ -14,6 +14,10 @@ class Tools:
         return Time.now(style)
 
     @staticmethod
+    def now_minus_days(style="%d-%m-%Y_%H.%M.%S"):
+        return Time.now_minus_days(style)
+
+    @staticmethod
     def json_view(results):
         return Text.json_view(results)
 

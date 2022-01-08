@@ -1,4 +1,13 @@
-# dynatrace-parser
-Dynatrace Parser
+# Dynatrace Parser
 
-Parser for processing the logs from the Dynatrace system.
+Ru:
+
+Dynatrace Parser - это обработчик данных в формате Json, разработанный
+специально для обработки логов из таких систем как Dynatrace.
+
+Инструкция:
+
+1. Установите Git;
+2. Склонируйте к себе на жесткий диск репозиторий;
+3. Установите Python 3 с официального сайта;
+4. Выполните в консоли: py run_complete_report.py.

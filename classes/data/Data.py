@@ -10,9 +10,6 @@ class Data:
         self.paths = config.paths
         self.likes = config.likes
 
-        # self.settings = Tools.json_load("settings.json")
-        # self.like_list = Tools.json_load("like_list.json")
-
         self.results = []
         self.results_lite = []
 
@@ -25,7 +22,6 @@ class Data:
         return curr_like
 
     def curr_item(self, item):
-        # curr_item = {'name': item['name']}
         curr_item = {}
         int_unix_time = int(item["infoData"]['callStartTime']) / 1000
         curr_item['startTime'] = datetime.fromtimestamp(int_unix_time).strftime('%Y-%m-%d %H:%M:%S')

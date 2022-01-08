@@ -1,4 +1,3 @@
-# from classes.dynatrace_parser.functional.Data import Data
 from classes.data.Data import Data
 from classes.tools.Tools import Tools
 
@@ -9,9 +8,11 @@ class MakeBeautyReport(Data):
         self.beauty_report = ""
 
     def make_beauty_report(self, report_filled):
-        text = f"Отчет Dynatrace от {Tools.time_now('%d.%m.%Y')} г."
+        text = f"Отчет по мониторингу логов от {Tools.time_now('%d.%m.%Y')} г."
         text += "\n"
-        text += f"\nТикеты, заведенные ДО {Tools.time_now('%d.%m.%Y')} г.:"
+        text += f"\nПериод наблюдения: c 00:00 {Tools.now_minus_days('%d.%m.%Y')} г. по 00:00 {Tools.time_now('%d.%m.%Y')} г."
+        text += "\n"
+        text += f"\nТикеты, заведенные до {Tools.time_now('%d.%m.%Y')} г.:"
         text += "\n"
 
         incidents_num_total = 0
@@ -23,6 +24,8 @@ class MakeBeautyReport(Data):
                 incidents_num_total += record["incidentsNumber"]
 
         text += "\n"
+        text += f"\nТикеты, заведенные после {Tools.time_now('%d.%m.%Y')} г.:"
+        text += "\n"
 
-        self.write_results(data=text, path=self.set_path("beauties"), prefix="beauty_report", extension="txt")
+        self.write_results(data=text, path=self.set_path("beauties"), prefix="beauty_report", extension="html")
         self.beauty_report = text

@@ -8,18 +8,14 @@ options = {
 	"printData": True,
 	"writeData": True,
 	"writeBeauty": True,
-	"runFull": True,
-	"customData": {
-		"date": "30.11.2021",
-		"isOn": True
-	}
+	"runFull": True
 }
 
 # Paths to program files and folders:
 paths = {
 	"dynotraceURI": {"path": "https://juu410.dynatrace-managed.com/e/3051004e-37e8-4d8f-98ff-9e175c2f39eb/#servicecall;sci=SERVICE-BE720D12C8680318;callURI="},
 	"dataPath": {"path": "data/"},
-	"sourcesNumber": 7,
+	"sourcesNumber": 12,
 	"source_bags": {"path": "source_bags/"},
 	"source_bags_kibana": {"path": "source_bags_kibana/"},
 	"reports": {"path": "reports/"},
