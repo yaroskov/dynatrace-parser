@@ -1,4 +1,4 @@
-import config
+from config import config
 from classes.dynatrace_parser.functional.Parser import Parser
 from classes.beauty_report.MakeBeautyReport import MakeBeautyReport
 from classes.tools.Tools import Tools

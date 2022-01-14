@@ -1,17 +1,22 @@
-import likes
-
+from config.dict import errors_dict, services
 
 # User's configuration of program:
 
+# Services:
+services = services.data
+
+# Errors dictionary:
+errors = errors_dict.errors
+
 # Options:
 options = {
-	"printData": True,
+	"printData": False,
 	"writeData": True,
 	"writeBeauty": True,
 	"runFull": True,
 	"customData": {
-		"date": "30.11.2021",
-		"isOn": True
+		"date": "13.01.2022",
+		"isOn": False
 	}
 }
 
@@ -19,21 +24,18 @@ options = {
 paths = {
 	"dynotraceURI": {"path": "https://juu410.dynatrace-managed.com/e/3051004e-37e8-4d8f-98ff-9e175c2f39eb/#servicecall;sci=SERVICE-BE720D12C8680318;callURI="},
 	"dataPath": {"path": "data/"},
-	"sourcesNumber": 7,
+	"sourcesNumber": 12,
 	"source_bags": {"path": "source_bags/"},
 	"source_bags_kibana": {"path": "source_bags_kibana/"},
 	"reports": {"path": "reports/"},
 	"tasks": {
 		"path": "tasks/",
-		"source": "tasks_22-12-2021_17.23.07.json"
+		"source": "tasks_13-01-2022_16.02.40.json"
 	},
 	"tasksSource": {
 		"path": "source_tasks/",
-		"source": "jira.egovdev 2021-12-22T17_12_40+0300.html"
+		"source": "jira.egovdev 2022-01-13T16_00_50+0300.html"
 	},
 	"reportsFilled": {"path": "reports_filled/"},
 	"beauties": {"path": "beauties/"}
 }
-
-# Likes list for grouping similar problems by the Message:
-likes = likes.likes

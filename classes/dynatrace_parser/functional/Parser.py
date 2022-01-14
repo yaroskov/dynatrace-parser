@@ -1,6 +1,7 @@
-# from classes.dynatrace_parser.functional.Data import Data
+from config import config
 from classes.tasks_list.UpdateReportWithTasks import UpdateReportWithTasks
 from classes.data.Data import Data
+from classes.dictionaries.Dictionaries import Dictionaries
 
 
 class Parser(Data):
@@ -13,7 +14,7 @@ class Parser(Data):
         final_data_lite = final_data.copy()
         final_data_lite["errors"] = final_data["errors"].copy()
 
-        prev_msg = ''
+        prev_msg = 'ыватплдывапьджбавалпьопдважпблбапиьвдвыазбвщивлдапиьвалиошыщиваиваибвпилвпивжишыводыбепиьешиоыьиы'
         prev_group = {}
         prev_group_lite = {}
 
@@ -24,22 +25,30 @@ class Parser(Data):
 
             group = {}
 
-            curr_like = self.like_finder(prev_msg)
+            curr_like = Dictionaries.dictionary_check(prev_msg, config.errors)
 
             if prev_msg == item["errorData"]["serverSide"]["exceptionMessage"] or curr_like:
                 group = prev_group
                 group_lite = prev_group_lite
-
             else:
                 final_data["errorsNumber"] += 1
                 final_data_lite["errorsNumber"] += 1
 
                 group["№"] = final_data["errorsNumber"]
                 group["incidentsNumber"] = 0
+                service = ""
+                for target in item["requestAttributesData"]["requestAttributesList"]:
+                    if target["name"] in "EPGU.ServiceID":
+                        service = target["value"]
+                        break
+
+                group["service"] = service
                 group["exceptionMessage"] = item["errorData"]["serverSide"]["exceptionMessage"]
                 group["exceptionClass"] = item["errorData"]["serverSide"]["exceptionClass"]
 
-                like_for_group = self.like_finder(item["errorData"]["serverSide"]["exceptionMessage"])
+                # like_for_group = self.like_finder(item["errorData"]["serverSide"]["exceptionMessage"])
+                like_for_group = Dictionaries.dictionary_check(item["errorData"]["serverSide"]["exceptionMessage"],
+                                                               config.errors)
                 if like_for_group:
                     group["like"] = like_for_group
 

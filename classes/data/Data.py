@@ -8,18 +8,9 @@ class Data:
 
         self.options = config.options
         self.paths = config.paths
-        self.likes = config.likes
 
         self.results = []
         self.results_lite = []
-
-    def like_finder(self, prev_msg):
-        curr_like = None
-        for like in self.likes:
-            if like in prev_msg:
-                curr_like = like
-                break
-        return curr_like
 
     def curr_item(self, item):
         curr_item = {}
