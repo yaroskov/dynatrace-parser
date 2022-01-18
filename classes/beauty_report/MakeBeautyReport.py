@@ -12,7 +12,8 @@ class MakeBeautyReport(BeautyBuilder):
         sorted_by_services = MakeBeautyReport.restructure(call_items)
 
         results = self.build_data(sorted_by_services)
-        template = main.template(results)
+        new_tasks = self.new_tasks(sorted_by_services)
+        template = main.template(results, new_tasks)
 
         self.write_results(data=template, path=self.set_path("beauties"), prefix="beauty_report", extension="html")
         self.beauty_report = template

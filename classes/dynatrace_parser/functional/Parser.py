@@ -25,12 +25,20 @@ class Parser(Data):
 
             group = {}
 
-            curr_like = Dictionaries.dictionary_check(prev_msg, config.errors)
+            curr_like = Dictionaries.dictionary_check(item["errorData"]["serverSide"]["exceptionMessage"],
+                                                      config.errors, tasks_list)
 
-            if prev_msg == item["errorData"]["serverSide"]["exceptionMessage"] or curr_like:
+            """if curr_like:
+                curr_msg = curr_like
+            else:
+                curr_msg = item["errorData"]["serverSide"]["exceptionMessage"]"""
+
+            if prev_msg == curr_like["pseudo"]:
                 group = prev_group
                 group_lite = prev_group_lite
             else:
+                # prev_msg = curr_like
+
                 final_data["errorsNumber"] += 1
                 final_data_lite["errorsNumber"] += 1
 
@@ -47,14 +55,24 @@ class Parser(Data):
                 group["exceptionClass"] = item["errorData"]["serverSide"]["exceptionClass"]
 
                 # like_for_group = self.like_finder(item["errorData"]["serverSide"]["exceptionMessage"])
-                like_for_group = Dictionaries.dictionary_check(item["errorData"]["serverSide"]["exceptionMessage"],
-                                                               config.errors)
-                if like_for_group:
-                    group["like"] = like_for_group
+                # like_for_group = Dictionaries.dictionary_check(item["errorData"]["serverSide"]["exceptionMessage"],
+                                                               # config.errors, tasks_list)
+                # if like_for_group:
+                group["like"] = curr_like["pseudo"]
 
-                group = tasks.find_task_directly(group, tasks_list)
+                if curr_like["task"] is not None:
+                    summary = curr_like["task"]["summary"] if "summary" in curr_like["task"] else ""
+                    key = curr_like["task"]["key"] if "key" in curr_like["task"] else ""
+                    date = curr_like["task"]["date"] if "date" in curr_like["task"] else ""
+
+                    group["task"] = {"taskName": summary, "taskNumber": key, "date": date}
+
+                # group = tasks.find_task_directly(group, tasks_list)
                 group_lite = group.copy()
                 group["incidents"] = []
+
+                # final_data["errors"].append(group)
+                # final_data_lite["errors"].append(group_lite)
 
             group["incidentsNumber"] += 1
             group_lite["incidentsNumber"] += 1
@@ -64,10 +82,12 @@ class Parser(Data):
             prev_group = group
             prev_group_lite = group_lite
 
-            if prev_msg != item["errorData"]["serverSide"]["exceptionMessage"] and not curr_like:
+            if prev_msg != curr_like["pseudo"]:
                 final_data["errors"].append(group)
                 final_data_lite["errors"].append(group_lite)
+                prev_msg = curr_like["pseudo"]
 
-            prev_msg = item["errorData"]["serverSide"]["exceptionMessage"]
-            self.results = final_data
-            self.results_lite = final_data_lite
+            # prev_msg = curr_msg
+            # prev_msg = item["errorData"]["serverSide"]["exceptionMessage"]
+        self.results = final_data
+        self.results_lite = final_data_lite

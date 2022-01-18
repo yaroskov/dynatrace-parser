@@ -2,7 +2,7 @@ from templates.beauty_report.blocks import tag
 from templates.beauty_report.blocks.lists import ol
 
 
-def template(input_data):
+def template(input_data, new_tasks):
     string = tag.template(tag="!DOCTYPE html", double=False)
     head = tag.template(tag="meta", params={"charset": "UTF-8"}, double=False)
     head += tag.template("title", "Dynatrace Analyse")
@@ -11,7 +11,7 @@ def template(input_data):
     string += tag.template(tag="div", params={"id": "header"})
 
     dyna_text = 'Dynatrace:'
-    sections = ["Выявленные отказы:" + input_data, "Заведены новые дефекты:"]
+    sections = ["Выявленные отказы:" + input_data, "Заведены новые дефекты:" + new_tasks]
     dyna_text += ol.template(sections)
     string += ol.template([dyna_text], type_argument="I")
 

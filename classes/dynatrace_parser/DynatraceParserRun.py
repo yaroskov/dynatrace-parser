@@ -62,5 +62,7 @@ class Run(Parser):
                            extension="json")
 
     def results_interface(self):
-        self.results_info = "report done with: errors: " + str(self.results_lite["errorsNumber"])
-        self.results_info += "; incidents: " + str(self.results_lite["incidentsTotalNumber"])
+        self.results_info = f"\nReport done at {Tools.time_now()}" \
+                            f"\n---------------------------------------" \
+                            f"\nerrors: {str(self.results_lite['errorsNumber'])}" \
+                            f"\nincidents: {str(self.results_lite['incidentsTotalNumber'])}"

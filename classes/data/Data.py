@@ -24,7 +24,7 @@ class Data:
         return curr_item
 
     def sources_number(self):
-        return self.paths["sourcesNumber"]
+        return self.options["sourcesNumber"]
 
     def set_path(self, source):
         return self.paths["dataPath"]["path"] + self.paths[source]["path"]

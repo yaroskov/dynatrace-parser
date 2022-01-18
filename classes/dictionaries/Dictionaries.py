@@ -3,8 +3,9 @@ import copy
 
 class Dictionaries:
     @staticmethod
-    def dictionary_check(message, dictionary):
-        results = None
+    def dictionary_check(message, dictionary, tasks_list):
+        results = {"pseudo": str(message), "task": None}
+
         for block in dictionary:
             target_copy = copy.deepcopy(block["target"])
             target_copy = target_copy.split("[[target]]")
@@ -13,7 +14,39 @@ class Dictionaries:
                     target_copy = False
                     break
             if target_copy is not False:
-                results = copy.deepcopy(block["pseudo"])
+                results = copy.deepcopy(block)
+                if "task" not in results or results["task"] is None:
+                    results["task"] = Dictionaries.task_search(target_copy, tasks_list)
+
+                """for task in tasks_list:
+                    results["task"] = task
+
+                    for word in target_copy:
+                        if word not in task["description"]:
+                            results["task"] = None
+                            break
+
+                    if results["task"] is not None:
+                        break"""
+                break
+
+        if results["task"] is None:
+            results["task"] = Dictionaries.task_search([message], tasks_list)
+
+        return results
+
+    @staticmethod
+    def task_search(target_copy, tasks_list):
+        results = None
+        for task in tasks_list:
+            results = task
+
+            for word in target_copy:
+                if word not in task["description"]:
+                    results = None
+                    break
+
+            if results is not None:
                 break
 
         return results
