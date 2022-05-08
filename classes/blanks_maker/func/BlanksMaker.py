@@ -1,5 +1,6 @@
 from classes.tools.Tools import Tools
 from classes.data.Data import Data
+from pathlib import Path
 
 
 class BlanksMaker(Data):
@@ -17,4 +18,9 @@ class BlanksMaker(Data):
         i = 0
         while i < sources_number:
             i += 1
-            open(f"{self.set_path('source_bags')}{date_time}/{i}.json", "wb")
+            path_string = f"{self.set_path('source_bags')}{date_time}/{i}.json"
+
+            if Path(path_string).is_file():
+                continue
+            else:
+                open(path_string, "wb")

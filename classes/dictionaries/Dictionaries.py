@@ -9,25 +9,18 @@ class Dictionaries:
         for block in dictionary:
             target_copy = copy.deepcopy(block["target"])
             target_copy = target_copy.split("[[target]]")
+
             for string in target_copy:
                 if string not in message:
                     target_copy = False
                     break
+
             if target_copy is not False:
                 results = copy.deepcopy(block)
+
                 if "task" not in results or results["task"] is None:
                     results["task"] = Dictionaries.task_search(target_copy, tasks_list)
 
-                """for task in tasks_list:
-                    results["task"] = task
-
-                    for word in target_copy:
-                        if word not in task["description"]:
-                            results["task"] = None
-                            break
-
-                    if results["task"] is not None:
-                        break"""
                 break
 
         if results["task"] is None:

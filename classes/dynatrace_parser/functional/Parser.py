@@ -22,23 +22,16 @@ class Parser(Data):
         tasks_list = tasks.load_tasks()
 
         for item in call_items:
-
             group = {}
 
-            curr_like = Dictionaries.dictionary_check(item["errorData"]["serverSide"]["exceptionMessage"],
-                                                      config.errors, tasks_list)
-
-            """if curr_like:
-                curr_msg = curr_like
-            else:
-                curr_msg = item["errorData"]["serverSide"]["exceptionMessage"]"""
+            curr_like = Dictionaries.dictionary_check(message=item["errorData"]["serverSide"]["exceptionMessage"],
+                                                      dictionary=config.errors,
+                                                      tasks_list=tasks_list)
 
             if prev_msg == curr_like["pseudo"]:
                 group = prev_group
                 group_lite = prev_group_lite
             else:
-                # prev_msg = curr_like
-
                 final_data["errorsNumber"] += 1
                 final_data_lite["errorsNumber"] += 1
 
@@ -54,10 +47,6 @@ class Parser(Data):
                 group["exceptionMessage"] = item["errorData"]["serverSide"]["exceptionMessage"]
                 group["exceptionClass"] = item["errorData"]["serverSide"]["exceptionClass"]
 
-                # like_for_group = self.like_finder(item["errorData"]["serverSide"]["exceptionMessage"])
-                # like_for_group = Dictionaries.dictionary_check(item["errorData"]["serverSide"]["exceptionMessage"],
-                                                               # config.errors, tasks_list)
-                # if like_for_group:
                 group["like"] = curr_like["pseudo"]
 
                 if curr_like["task"] is not None:
@@ -67,12 +56,8 @@ class Parser(Data):
 
                     group["task"] = {"taskName": summary, "taskNumber": key, "date": date}
 
-                # group = tasks.find_task_directly(group, tasks_list)
                 group_lite = group.copy()
                 group["incidents"] = []
-
-                # final_data["errors"].append(group)
-                # final_data_lite["errors"].append(group_lite)
 
             group["incidentsNumber"] += 1
             group_lite["incidentsNumber"] += 1
@@ -87,7 +72,5 @@ class Parser(Data):
                 final_data_lite["errors"].append(group_lite)
                 prev_msg = curr_like["pseudo"]
 
-            # prev_msg = curr_msg
-            # prev_msg = item["errorData"]["serverSide"]["exceptionMessage"]
         self.results = final_data
         self.results_lite = final_data_lite
